@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    SignUp Page
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="alert alert-danger" role="alert" id="message">
+                {{message}}
+            </div>
+            <form class="form-container" method="post" action="">
+                <h1 id="login-head">Sign Up!</h1>
+                <div class="mb-3">
+                    <input type="email" name="user_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="EMAIL/USERNAME">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="firstname" class="form-control" placeholder="First name" aria-label="First name">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="lastname" class="form-control" placeholder="Last name" aria-label="Last name">
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password1" class="form-control" id="exampleInputPassword1" placeholder="PASSWORD">
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="confirmpassword" class="form-control" id="exampleInputPassword1" placeholder="CONFIRM-PASSWORD">
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                </div>
+                <div class="ma-10">
+                    <br>
+                    <p>Already a user?<a href="/">Login Here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

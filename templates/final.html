@@ -1,0 +1,108 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for ('static',filename='css/styles.css') }}">
+        <title>Home</title>
+    </head>
+    <body class="bg-img-home">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><h1>Book Review</h1></a>
+                <form class="d-flex" method="GET" action="{{ url_for('search') }}">
+                    <input class="form-control me-2" size="40" type="search" name="text" placeholder="Search ISBN,Author,Title" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <a style="margin-top: 5px;" class="btn btn-outline-success" href="/logout">Log out</a>
+            </div>
+        </nav>
+        <div class="dropdown-divider"></div>
+        <div class='container bg-light' id="cont-padd">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="cover">
+                        <img src="http://covers.openlibrary.org/b/isbn/{{data.isbn}}-M.jpg" width="130px">
+
+                        <h5 class="card-text"><strong>Author:</strong>{{data.author}} </h5>
+                        <h5 class="card-text"><strong>Year:</strong>{{data.year}} </h5>
+                        <h5 class="card-text"><strong>ISBN:</strong>{{data.isbn}} </h5> 
+                        <h5><a href='/api/{{data.isbn}}'>CLICK HERE TO GET API</a></h5> 
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+
+                    <div class="goodreads">
+                        <img src="../static/Images/goodreads.png" width="200px height="150px>
+                        <h5 class="card-text"> <strong>Average rate:</strong> {{avg_rating}}*</h5> 
+                        <h5 class="card-text"> <strong>No. of ratings:</strong> {{rate_count}}*</h5>
+                        <h5 class="card-text"> <a href=https://www.goodreads.com/search?q={{data.isbn}}> Goodreads Page </a> </h5>
+                    </div> 
+                    <div class="bg-light text-center astrisk">*Data keeps changing as per Goodreads API</div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        <div class="container bg-light" id="reviews">
+            <h3><div class="alert alert-dark users" role="alert">Users reviews</div></h3>
+            {% if size==0 %}
+            <h4 style="text-align: center;">No reviews!!!</h4>
+            {% endif %}
+            {% for feeds in reviews %}
+            <div class="feedback-quote">
+                <h6>Rating: {{feeds.rating}} of 5</h6>
+                <blockquote class="blockquote">
+                <p>{{feeds.feedback}}</p>
+                <footer class="blockquote-footer">{{feeds.username}}</footer>
+                </blockquote>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+        <div class="container bg-light" id="user-review">
+            <div class="row">
+                <h3><div class="alert alert-dark users" role="alert">Give your Feedback</div></h3>
+                <form method="post" class="row g-3" >
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text" id="feedcolor">Give Your Feedback</span>
+                            <textarea name="feedback" class="form-control" aria-label="With textarea" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="customRange2" class="form-label">BOOK-RATING(0-5)</label>
+                        <input name="rating" type="range" class="form-range" min="0" max="5" id="customRange2" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        
+        
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+        -->
+    </body>
+</html>
